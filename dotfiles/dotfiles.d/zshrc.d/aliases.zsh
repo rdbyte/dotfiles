@@ -1,0 +1,126 @@
+# Command Aliases
+#
+# Generally, any commands that start with `alias` should live here.
+# Checks can be done to see if a command exists before building
+# the alias.
+
+# Simple aliases
+
+# Access to this dotfile installer
+alias dotfiles="bash <(curl -fsSL https://raw.githubusercontent.com/rdbyte/dotfiles/master/install.sh)"
+
+# Quick history search
+alias hgrep="history | grep -i"
+alias up_sys="sudo apt update; sudo apt upgrade -y; sudo apt autoremove -y"
+alias burp="java -jar $1"
+alias cat='bat --style=plain --pager=never'
+alias lha='lsd -lha'
+alias httpserver="python3 -m http.server 9001"
+alias rcp="rsync -ah --inplace --info=progress2"
+alias ls='exa --long --header --git -a'
+alias adb='/home/temp/Android/Sdk/platform-tools/adb'
+alias inspeckage='adb forward tcp:8008 tcp:8008'
+alias iphone_udid='lsusb -v 2> /dev/null | grep -e "Apple Inc" -A 2'
+alias jadx='/home/temp/tools/mobile-pentest/MOBILE-TOOLS/jadx/bin/jadx-gui'
+alias buster_dir="gobuster dir -w /home/temp/tools/wordlist/all-tg.txt -u $1"
+alias buster_dns="gobuster dns -w /home/temp/tools/wordlist/SecLists/Discovery/DNS/sortedcombied-knock-dnsrecon-fierce-reconng.txt -d $1"
+alias top="sudo htop"
+# Kill jobs in the current session
+alias killjobs='echo $(jobs -p | awk "{ print $3 }") | xargs -t kill -9'
+
+# Clean and restore the prompt for screenshots or something
+alias cprompt="PS1BAK=\$PS1 && PS1=\"$ \""
+alias oprompt="PS1=\$PS1BAK"
+
+# Alias Screensaver on macOS High Sierra as afk. My Mac locks when it starts.
+# if [[ -f "/System/Library/CoreServices/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine" ]]; then
+#     alias afk="open -a ScreenSaverEngine"
+# fi
+
+# Alias Sublime Text 3 if installed on macOS
+# if [[ -f "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" ]]; then
+#     alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
+# fi
+
+# Alias ports to lsof for tcp connections
+# if hash lsof 2>/dev/null; then
+#     alias ports="sudo lsof -iTCP -sTCP:LISTEN -P"
+# fi
+
+# Alias locate on macOS to Spotlights mdfind -name
+# if hash mdfind 2>/dev/null; then
+#     alias locate="mdfind -name"
+# fi
+
+# Make gdb quiet on start
+if hash gdb 2>/dev/null; then
+    alias gdb="gdb -q"
+fi
+
+
+
+# Alias nah to reset changes in a git repository
+if hash git 2>/dev/null; then
+    alias nah="git reset --hard;git clean -df"
+fi
+
+# Alias proxychains. macOS & brew seems to have it as proxychanins4
+# and *everywhere* else its just proxychains
+if hash proxychains 2>/dev/null || hash proxychains4 2>/dev/null; then
+
+    if hash proxychains 2>/dev/null; then
+        alias chain="proxychains -q"
+    else
+        alias chain="proxychains4 -q"
+    fi
+
+fi
+
+# Alias httpie & method to just the method
+# if hash http 2>/dev/null; then
+
+#     for method in get post put delete; do
+#         alias $method="http $method"
+#     done
+
+# fi
+
+# Python2 Tools
+if hash python3 2>/dev/null; then
+
+    alias httpserver="python3 -m http.server 0"
+
+fi
+
+# alias cat to bat: https://github.com/sharkdp/bat
+if hash bat 2>/dev/null; then
+
+    alias cat='bat'
+
+fi
+
+# use rsync for cp == progress indicator!
+if hash rsync 2>/dev/null; then
+
+    alias rcp="rsync -ah --inplace --info=progress2"
+fi
+
+# exa! https://the.exa.website/
+if hash exa 2>/dev/null; then
+
+    alias ls='exa'
+fi
+
+# Create a preview command!
+# https://remysharp.com/2018/08/23/cli-improved#fzf--ctrlr
+# if hash fzf 2>/dev/null; then
+
+#     if hash bat 2>/dev/null; then
+
+#         alias preview="fzf --preview 'bat --color \"always\" {}'"
+
+#     else
+
+#         alias preview="fzf --preview 'cat {}'"
+#     fi
+# fi
